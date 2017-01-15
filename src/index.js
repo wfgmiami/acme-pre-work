@@ -14,7 +14,7 @@ db.addUser({ name: "Larry" });
 console.log(db.showUsers());
 console.log(db.findById(2).name);
 
-add.addUser({ name: "Curly" });
+db.addUser({ name: "Curly" });
 db.removeUserById(1);
 
 console.log(db.users[0].name);

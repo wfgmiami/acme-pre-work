@@ -1,14 +1,19 @@
 class AcmeDB {
   constructor({ users }){
-
-   this.users = [
-     {name: users[0].name}
-    ]
-    this.users[0]["id"] = this.users.length;
+    for (var i = 0; i < users.length; i++){
+      this.users = [{name: users[i].name, id: i + 1}];
+    }
   }
 
   addUser(user){
-    user.id = this.users.length + 1;
+   var max = 0;
+   this.users.forEach(function(user){
+      if (max < user.id){
+        max = user.id;
+      }
+    });
+
+    user.id = max + 1;
     this.users.push(user);
   }
 
@@ -21,15 +26,35 @@ class AcmeDB {
   }
 
   findById (id){
-    return this.users[id - 1];
+    var person = "";
+    this.users.forEach(function(item){
+      if (item.id === id){
+        person = item;
+      }
+    })
+    return person;
   }
 
   removeUserById (id){
-
+    var index = 0;
+    for (var i = 0; i < this.users.length; i++){
+      if (this.users[i].id === id){
+        index = i;
+        break;
+      }
+    }
+    this.users.splice(index, 1);
   }
 
-  editUser(){
-
+  editUser(user){
+    var index = 0;
+    for (var i = 0; i < this.users.length; i++){
+      if (this.users[i].id === user.id){
+        index = i;
+        break;
+      }
+    }
+    this.users[index].name = user.name;
   }
 }
 
